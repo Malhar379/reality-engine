@@ -20,24 +20,26 @@ rabbit = RabbitWorld(
 
 # Uncomment this block to run the Rabbit Ecosystem simulation.
 
-#simulate(rabbit, 20)
+simulate(rabbit, 100)
 
-#population = [
-    #snapshot["population"]
-    #for snapshot in rabbit.history
-#]
+population = [
+    snapshot["population"]
+    for snapshot in rabbit.history
+]
 
-#grass = [
-    #snapshot["grass"]
-    #for snapshot in rabbit.history
-#]
+grass = [
+    snapshot["grass"]
+    for snapshot in rabbit.history
+]
 
-#plot_time_series(
-    #{
-        #"Population": population,
-        #"Grass": grass,
-    #}
-#)
+plot_time_series(
+    {
+        "Population": population,
+        "Grass": grass,
+    },
+    title="Rabbit Ecosystem Simulation",
+    save_path="images/rabbit_world.png",
+)
 
 # =====================================================
 #Example 2: Disease Spread
@@ -69,10 +71,12 @@ recovered = [
     for snapshot in disease_world.history
 ]
 
-plot_time_series(
-    {
-        "Susceptible": susceptible,
-        "Infected": infected,
-        "Recovered": recovered,
-    }
-)
+#plot_time_series(
+    #{
+        #"Susceptible": susceptible,
+        #"Infected": infected,
+        #"Recovered": recovered,
+    #},
+    #title="Disease Spread Simulation",
+    #save_path="images/disease_world.png",
+#)
