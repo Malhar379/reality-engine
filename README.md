@@ -33,11 +33,11 @@ flowchart TD
 
 ## Features
 
-- Modular simulation engine
-- Object-oriented world abstraction
+- Modular simulation engine with a shared `World` interface
+- Object-oriented world abstraction (polymorphic `step()` method)
 - Multiple interchangeable simulation worlds
-- Automatic history recording
-- Generic time-series visualization
+- Automatic per-step history recording
+- Generic time-series visualization, agnostic to world type
 - Easily extendable architecture
 
 ---
@@ -71,29 +71,30 @@ reality-engine/
 
 ### Rabbit Ecosystem
 
-Simulates an ecosystem where:
+A resource-constrained population model where:
 
-- Rabbits reproduce
-- Rabbits die naturally
+- Rabbits reproduce (birth rate scaled by grass availability)
+- Rabbits die at a constant rate
 - Rabbits consume grass
-- Grass regrows over time
+- Grass regrows over time, capped at its initial value
 
-State variables:
+State variables: Population, Grass
 
-- Population
-- Grass
+**Results (100 steps):** Population peaked at 121.94 (step 2), then declined 93.6% to a minimum of 7.86 (step 40) as grass was depleted. As grass regenerated, population partially recovered before entering a second decline a boom-bust cycle driven purely by resource constraints, with no explicit predator.
 
 ---
 
 ### Disease Spread
 
-Simulates disease propagation through interacting populations:
+A compartmental SIR (Susceptible-Infected-Recovered) epidemic model:
 
 - Susceptible
 - Infected
 - Recovered
 
 The disease evolves according to configurable spread and recovery rates.
+
+**Results (20 steps):** With a spread rate of 0.4 and recovery rate of 0.2 (basic reproduction number R₀ = 2.0), infections peaked at 21.68 individuals at step 9, before declining as the susceptible population was depleted. By step 19: Susceptible ≈ 28.75, Recovered ≈ 74.40.
 
 ---
 
@@ -117,7 +118,7 @@ The disease evolves according to configurable spread and recovery rates.
 python main.py
 ```
 
-Choose the desired simulation by uncommenting the corresponding example inside `main.py`.
+Both example simulations (Rabbit Ecosystem and Disease Spread) run by default. Comment out either block inside `main.py` to run a single simulation.
 
 ---
 
@@ -145,7 +146,3 @@ The framework is designed to support additional worlds such as:
 - Custom user-defined simulations
 
 ---
-
-## License
-
-This project is provided for educational and experimentation purposes.

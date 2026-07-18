@@ -41,6 +41,14 @@ plot_time_series(
     save_path="images/rabbit_world.png",
 )
 
+peak_population = max(population)
+peak_step = population.index(peak_population)
+min_population = min(population)
+min_step = population.index(min_population)
+print(f"Rabbit peak population: {peak_population:.2f} at step {peak_step}")
+print(f"Rabbit minimum population: {min_population:.2f} at step {min_step}")
+print(f"Population decline from peak: {(1 - min_population/peak_population)*100:.1f}%")
+
 # =====================================================
 #Example 2: Disease Spread
 #This example is enabled by default.
@@ -71,12 +79,19 @@ recovered = [
     for snapshot in disease_world.history
 ]
 
-#plot_time_series(
-    #{
-        #"Susceptible": susceptible,
-        #"Infected": infected,
-        #"Recovered": recovered,
-    #},
-    #title="Disease Spread Simulation",
-    #save_path="images/disease_world.png",
-#)
+plot_time_series(
+    {
+        "Susceptible": susceptible,
+        "Infected": infected,
+        "Recovered": recovered,
+    },
+    title="Disease Spread Simulation",
+    save_path="images/disease_world.png",
+)
+
+peak_infected = max(infected)
+peak_step = infected.index(peak_infected)
+r0 = disease_world.parameters["spread_rate"] / disease_world.parameters["recovery_rate"]
+print(f"Disease peak infected: {peak_infected:.2f} at step {peak_step}")
+print(f"Basic reproduction number (R0): {r0:.2f}")
+print(f"Final susceptible: {susceptible[-1]:.2f}, Final recovered: {recovered[-1]:.2f}")
